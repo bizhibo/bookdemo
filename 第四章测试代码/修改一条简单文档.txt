@@ -1,0 +1,9 @@
+user goodsdb
+db.order.insert(
+{title:"商品购物单1"
+,amount:35,
+detail:[{name:"苹果",price:22},{name:"面粉",price:18}]
+}
+)
+db.order.update({title:"商品购物单1"},{$set:{title:"商品购物单2"}})  //改订单名称
+db.order.find().pretty()

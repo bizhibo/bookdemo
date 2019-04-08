@@ -1,0 +1,2 @@
+document=({name:"《C语言编程》",price:32})//document为变量名
+db.goodsbaseinf.insert(document)

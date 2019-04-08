@@ -1,0 +1,8 @@
+>db.goodsbaseinf.insert(
+[
+{ item: "小学生教材",name:"《小学一年级语文(上册)》",price:12 },
+{ item: "初中生教材",name:"《初中一年级语文(上册)》",price:15},
+{ item: "高中生教材",name:"《高中一年级语文(上册)》",price:20},
+{ item: "外语教材",name:"《英语全解\nABC（五年级上）》",price:30}
+]
+)

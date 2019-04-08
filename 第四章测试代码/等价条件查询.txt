@@ -1,0 +1,3 @@
+db.goodsbaseinf.find(
+{name:"《C语言编程》"},
+{name:1,price:1,_id:0}) //0或false不显示指定字段，1或true显示指定字段

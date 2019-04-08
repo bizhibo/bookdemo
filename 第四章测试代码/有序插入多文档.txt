@@ -1,0 +1,9 @@
+db.goodsbaseinf.insert(
+[
+{_id:10,item:"小学生教材",name:"《小学二年级语文(上册)》",price:10},
+{_id:12,item:"小学生教材",name:"《小学四年级语文(上册)》",price:13},
+{_id:11,item:"小学生教材",name:"《小学三年级语文(上册)》",price:12}
+],
+{ordered:true}//有序插入设置
+)
+db.goodsbaseinf.find().pretty()

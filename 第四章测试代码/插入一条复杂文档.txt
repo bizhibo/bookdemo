@@ -1,0 +1,8 @@
+db.goodsbaseinf.insert(
+ {name:"<c语言>",
+ bookprice:33.2,
+ adddate:2017-10-1,
+ allow:true,
+ baseinf:{ISBN:183838388,press:"清华大学出版社"},
+ tags:["good","book","it","Program"]
+ })

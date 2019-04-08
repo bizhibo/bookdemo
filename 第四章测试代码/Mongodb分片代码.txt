@@ -1,0 +1,44 @@
+mongod -port 27020 -dbpath "d:\mongoDB\shard\s0\data\db" -logpath "d:\mongoDB\shard\s0\data\log\s0.log" --logappend --shardsvr
+mongod -port 27021 -dbpath "d:\mongoDB\shard\s1\data\db" -logpath "d:\mongoDB\shard\s1\data\log\s1.log" --logappend --shardsvr
+mongod -port 27022 -dbpath "d:\mongoDB\shard\s2\data\db" -logpath "d:\mongoDB\shard\s2\data\log\s2.log" --logappend --shardsvr
+mongod -port 27023 -dbpath "d:\mongoDB\shard\s3\data\db" -logpath "d:\mongoDB\shard\s3\data\log\s3.log" --logappend --shardsvr
+#上述为4个分片进程
+
+mongod -port 27017 --configsvr -dbpath d:\mongoDB\shard\config -logpath d:\mongoDB\shard\log\config.log  -replSet rs0 
+
+#下述为3个配置服务进程
+mongod  -port 27017 --configsvr -dbpath  "d:\mongodb\data\db" -logpath "d:\mongodb\data\log\config.log" -replSet rs0
+mongod -port 27018 --configsvr -dbpath  "d:\mongodb1\data\db" -logpath "d:\mongodb1\data\log\MongoDB.log" -replSet rs0 
+mongod -port 27019 --configsvr -dbpath  "d:\mongodb2\data\db" -logpath "d:\mongodb2\data\log\MongoDB.log" -replSet rs0 
+
+mongos -port 40000 -configdb "rs0/localhost:27017,localhost:27018,localhost:27019" -logpath "d:\mongoDB\shard\log\route.log"
+
+mongo admin --port 40000
+configsvr:true,
+rs.add( { configsvr:true } )
+
+
+rs.initiate({  _id: "rs0",
+  configsvr:true,
+ members: [
+               { _id: 0, host: "localhost:27017","priority":3 },
+               { _id: 1, host: "localhost:27018","priority":2 },
+               { _id: 2, host: "localhost:27019","priority":1 }
+             ]
+         }
+)
+
+
+
+sh.addshard("rs0/localhost:27020" )
+
+
+db.runCommand({addShard:"localhost:27020"})
+db.runCommand({addShard:"localhost:27021"})
+db.runCommand({addShard:"localhost:27022"})
+db.runCommand({addShard:"localhost:27023"})   
+
+
+db.runCommand({listshards:1})
+
+db.runCommand({enablesharding:"testdb"})
